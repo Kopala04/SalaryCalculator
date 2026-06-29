@@ -37,7 +37,7 @@ const DEFAULTS = {
 };
 
 let state = {
-  currency: 'USD',
+  currency: 'GEL',
   theme: 'light',
   ...DEFAULTS,
 };
