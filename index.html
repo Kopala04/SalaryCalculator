@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salary Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header__brand">
+        <div class="header__icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <path d="M8 7h8M8 11h8M8 15h4"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="header__title">Salary Calculator</h1>
+          <p class="header__subtitle">Gross &amp; net pay from hours worked</p>
+        </div>
+      </div>
+      <div class="header__actions">
+        <div class="currency-select" role="group" aria-label="Currency">
+          <button type="button" class="currency-btn is-active" data-currency="USD" aria-pressed="true">$</button>
+          <button type="button" class="currency-btn" data-currency="EUR" aria-pressed="false">€</button>
+          <button type="button" class="currency-btn" data-currency="GEL" aria-pressed="false">₾</button>
+        </div>
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="grid">
+        <!-- Inputs -->
+        <section class="card card--inputs" aria-labelledby="base-info-heading">
+          <div class="card__header">
+            <h2 id="base-info-heading" class="card__title">Base Information</h2>
+            <button type="button" class="btn btn--ghost btn--sm" id="resetBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Reset
+            </button>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="hourlyRate">Hourly Rate</label>
+              <div class="input-wrap">
+                <span class="input-prefix currency-symbol">$</span>
+                <input type="number" id="hourlyRate" min="0" step="0.01" placeholder="10.00" value="9.125" />
+              </div>
+              <span class="field-error" id="hourlyRateError"></span>
+            </div>
+
+            <div class="field">
+              <label for="totalHours">Total Worked Hours</label>
+              <div class="input-wrap">
+                <input type="number" id="totalHours" min="0" step="0.5" placeholder="180" />
+                <span class="input-suffix">hrs</span>
+              </div>
+              <span class="field-error" id="totalHoursError"></span>
+            </div>
+
+            <div class="field">
+              <label for="standardHours">Standard Monthly Hours</label>
+              <div class="input-wrap">
+                <input type="number" id="standardHours" min="1" step="1" placeholder="176" value="176" />
+                <span class="input-suffix">hrs</span>
+              </div>
+              <span class="field-hint">e.g. Jan 184, Feb 160, Mar 176</span>
+              <span class="field-error" id="standardHoursError"></span>
+            </div>
+
+            <div class="field">
+              <label for="taxPercent">Income Tax</label>
+              <div class="input-wrap">
+                <input type="number" id="taxPercent" min="0" max="100" step="0.1" placeholder="20" />
+                <span class="input-suffix">%</span>
+              </div>
+              <span class="field-error" id="taxPercentError"></span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3 class="card__subtitle">Hour Categories</h3>
+          <p class="card__description">Special hours are part of total hours — not added on top.</p>
+
+          <div class="form-grid form-grid--categories">
+            <div class="field field--category" data-category="night">
+              <label for="nightHours">
+                Night Hours
+                <span class="badge badge--night">+40%</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="nightHours" min="0" step="0.5" placeholder="0" />
+                <span class="input-suffix">hrs</span>
+              </div>
+            </div>
+
+            <div class="field field--category" data-category="holiday">
+              <label for="holidayHours">
+                Holiday Hours
+                <span class="badge badge--holiday">+25%</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="holidayHours" min="0" step="0.5" placeholder="0" />
+                <span class="input-suffix">hrs</span>
+              </div>
+            </div>
+
+            <div class="field field--category" data-category="holidayNight">
+              <label for="holidayNightHours">
+                Holiday Night Hours
+                <span class="badge badge--holiday-night">+50%</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="holidayNightHours" min="0" step="0.5" placeholder="0" />
+                <span class="input-suffix">hrs</span>
+              </div>
+            </div>
+
+            <div class="field field--category" data-category="overtime">
+              <label for="overtimeHours">
+                Overtime Hours
+                <span class="badge badge--overtime">+100%</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="overtimeHours" min="0" step="0.5" placeholder="0" />
+                <span class="input-suffix">hrs</span>
+              </div>
+            </div>
+
+            <div class="field field--category" data-category="overtimeNight">
+              <label for="overtimeNightHours">
+                Overtime Night Hours
+                <span class="badge badge--overtime-night">+140%</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="overtimeNightHours" min="0" step="0.5" placeholder="0" />
+                <span class="input-suffix">hrs</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert--warning" id="hoursWarning" role="alert" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span id="hoursWarningText"></span>
+          </div>
+        </section>
+
+        <!-- Results -->
+        <section class="results" aria-labelledby="results-heading">
+          <h2 id="results-heading" class="sr-only">Calculation Results</h2>
+
+          <div class="summary-cards">
+            <div class="summary-card summary-card--gross">
+              <span class="summary-card__label">Gross Salary</span>
+              <span class="summary-card__value" id="grossSalary" data-value="0">$0.00</span>
+            </div>
+            <div class="summary-card summary-card--net">
+              <span class="summary-card__label">Net Salary</span>
+              <span class="summary-card__value" id="netSalary" data-value="0">$0.00</span>
+              <span class="summary-card__meta" id="taxDeduction">Tax: $0.00</span>
+            </div>
+          </div>
+
+          <div class="card card--breakdown">
+            <div class="card__header">
+              <h3 class="card__title">Hours Breakdown</h3>
+              <span class="pill" id="regularHoursPill">0 regular hrs</span>
+            </div>
+            <div class="breakdown-grid" id="hoursBreakdown">
+              <!-- populated by JS -->
+            </div>
+          </div>
+
+          <div class="card card--breakdown">
+            <div class="card__header">
+              <h3 class="card__title">Payment Breakdown</h3>
+            </div>
+            <div class="breakdown-grid" id="payBreakdown">
+              <!-- populated by JS -->
+            </div>
+            <div class="breakdown-total">
+              <span>Total Gross</span>
+              <span class="animated-value" id="grossTotal">$0.00</span>
+            </div>
+          </div>
+
+          <div class="card card--actions">
+            <button type="button" class="btn btn--primary" id="copyBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copyBtnText">Copy Results</span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Calculations update in real time. Special hour categories are subtracted from total hours to derive regular hours.</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
