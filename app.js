@@ -287,7 +287,7 @@ function setCurrency(code) {
   });
   updateCurrencySymbols();
   updateUI();
-  localStorage.setItem('salary-calc-currency', code);
+  localStorage.setItem('salary-calc-currency-v2', code);
 }
 
 function setTheme(theme) {
@@ -423,7 +423,7 @@ function loadPreferences() {
     setTheme(savedTheme);
   }
 
-  const savedCurrency = localStorage.getItem('salary-calc-currency');
+  const savedCurrency = localStorage.getItem('salary-calc-currency-v2');
   if (savedCurrency && CURRENCIES[savedCurrency]) {
     setCurrency(savedCurrency);
   }
