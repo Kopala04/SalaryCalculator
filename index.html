@@ -26,9 +26,9 @@
       </div>
       <div class="header__actions">
         <div class="currency-select" role="group" aria-label="Currency">
-          <button type="button" class="currency-btn is-active" data-currency="USD" aria-pressed="true">$</button>
+          <button type="button" class="currency-btn" data-currency="USD" aria-pressed="false">$</button>
           <button type="button" class="currency-btn" data-currency="EUR" aria-pressed="false">€</button>
-          <button type="button" class="currency-btn" data-currency="GEL" aria-pressed="false">₾</button>
+          <button type="button" class="currency-btn is-active" data-currency="GEL" aria-pressed="true">₾</button>
         </div>
         <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode">
           <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -57,7 +57,7 @@
             <div class="field">
               <label for="hourlyRate">Hourly Rate</label>
               <div class="input-wrap">
-                <span class="input-prefix currency-symbol">$</span>
+                <span class="input-prefix currency-symbol">₾</span>
                 <input type="number" id="hourlyRate" min="0" step="0.01" placeholder="10.00" value="9.125" />
               </div>
               <span class="field-error" id="hourlyRateError"></span>
@@ -167,12 +167,12 @@
           <div class="summary-cards">
             <div class="summary-card summary-card--gross">
               <span class="summary-card__label">Gross Salary</span>
-              <span class="summary-card__value" id="grossSalary" data-value="0">$0.00</span>
+              <span class="summary-card__value" id="grossSalary" data-value="0">₾0.00</span>
             </div>
             <div class="summary-card summary-card--net">
               <span class="summary-card__label">Net Salary</span>
-              <span class="summary-card__value" id="netSalary" data-value="0">$0.00</span>
-              <span class="summary-card__meta" id="taxDeduction">Tax: $0.00</span>
+              <span class="summary-card__value" id="netSalary" data-value="0">₾0.00</span>
+              <span class="summary-card__meta" id="taxDeduction">Tax: ₾0.00</span>
             </div>
           </div>
 
@@ -195,7 +195,7 @@
             </div>
             <div class="breakdown-total">
               <span>Total Gross</span>
-              <span class="animated-value" id="grossTotal">$0.00</span>
+              <span class="animated-value" id="grossTotal">₾0.00</span>
             </div>
           </div>
 
